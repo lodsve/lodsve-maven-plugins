@@ -10,15 +10,12 @@
         <relativePath/>
     </parent>
 	<artifactId>lodsve-maven-plugins</artifactId>
+	<version>1.0.0-RELEASE</version>
+
+	<modules>
+		<module>lodsve-maven-plugins-shade</module>
+	</modules>
+
 	<name>Lodsve Maven Plugins</name>
 	<description>Lodsve Maven Plugins</description>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-shade-plugin</artifactId>
-			<version>${maven.shade.plugin.version}</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
 </project>

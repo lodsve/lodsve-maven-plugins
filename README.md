@@ -1,10 +1,12 @@
-# Expand maven plugins for lodsve-framework
+# Maven plugins for lodsve-framework!
 
-## maven-shade-plugin
-
+## Expand maven plugins `maven-shade-plugin`
 - `lodsve.maven.plugin.shade.SpringFactoriesResourceTransformer` 
 
     merge spring.factories
+- `lodsve.maven.plugin.shade.RegexAppendingTransformer`    
+    
+    merge resources with regex
 - How to use it?
 
         <plugin>
@@ -31,6 +33,9 @@
                         <transformers>
                             <transformer implementation="lodsve.maven.plugin.shade.SpringFactoriesResourceTransformer"/>
                         </transformers>
+                        <transformer implementation="lodsve.maven.plugin.shade.RegexAppendingTransformer">
+                            <regex>META-INF/error/.*.properties</regex>
+                        </transformer>
                     </configuration>
                 </execution>
             </executions>
