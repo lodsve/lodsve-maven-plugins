@@ -3,7 +3,7 @@
 ## Expand maven plugins `maven-shade-plugin`
 - `lodsve.maven.plugin.shade.SpringFactoriesResourceTransformer` 
 
-    merge spring.factories
+    merge `spring.factories`
 - `lodsve.maven.plugin.shade.RegexAppendingTransformer`    
     
     merge resources with regex
