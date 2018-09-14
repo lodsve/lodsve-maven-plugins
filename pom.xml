@@ -11,6 +11,7 @@
     </parent>
 	<artifactId>lodsve-maven-plugins</artifactId>
 	<version>1.0.0-RELEASE</version>
+	<packaging>pom</packaging>
 
 	<modules>
 		<module>lodsve-maven-plugins-shade</module>
