@@ -5,18 +5,31 @@
     <!-- 配置父 -->
     <parent>
         <groupId>com.lodsve</groupId>
-        <artifactId>lodsve-framework</artifactId>
-        <version>2.7.4-RELEASE</version>
+        <artifactId>lodsve-parent</artifactId>
+        <version>1.0.0-RELEASE</version>
         <relativePath/>
     </parent>
+
     <artifactId>lodsve-maven-plugins</artifactId>
-    <version>1.0.1-RELEASE</version>
+    <version>1.0.2-RELEASE</version>
     <packaging>pom</packaging>
+    <name>Lodsve Maven Plugins</name>
+    <description>Lodsve Maven Plugins</description>
 
     <modules>
         <module>lodsve-maven-plugins-shade</module>
     </modules>
 
-    <name>Lodsve Maven Plugins</name>
-    <description>Lodsve Maven Plugins</description>
+    <!-- issue -->
+    <issueManagement>
+        <system>Github Issue</system>
+        <url>https://github.com/lodsve/lodsve-maven-plugins/issues</url>
+    </issueManagement>
+
+    <!-- 代码库 -->
+    <scm>
+        <connection>scm:git:git@github.com:lodsve/lodsve-maven-plugins.git</connection>
+        <developerConnection>scm:git:git@github.com:lodsve/lodsve-maven-plugins.git</developerConnection>
+        <url>git@github.com:lodsve/lodsve-maven-plugins.git</url>
+    </scm>
 </project>
