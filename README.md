@@ -1,4 +1,6 @@
 # Maven plugins for lodsve-framework!
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flodsve%2Flodsve-maven-plugins.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Flodsve%2Flodsve-maven-plugins?ref=badge_shield)
+
 
 ## Expand maven plugins `maven-shade-plugin`
 - `lodsve.maven.plugin.shade.SpringFactoriesResourceTransformer` 
@@ -40,3 +42,6 @@
                 </execution>
             </executions>
         </plugin>
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Flodsve%2Flodsve-maven-plugins.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Flodsve%2Flodsve-maven-plugins?ref=badge_large)
