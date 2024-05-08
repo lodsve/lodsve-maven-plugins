@@ -1,4 +1,4 @@
-package lodsve.maven.plugin.shade;
+package com.lodsve.maven.plugin.shade;
 
 import org.apache.maven.plugins.shade.relocation.Relocator;
 import org.apache.maven.plugins.shade.resource.ResourceTransformer;
