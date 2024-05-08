@@ -25,10 +25,6 @@
     <artifactId>lodsve-maven-plugin-parent</artifactId>
     <version>${revision}</version>
     <name>Lodsve Maven Plugin Parent</name>
-    <packaging>pom</packaging>
-    <description>Lodsve Maven Plugin Parent</description>
-    <url>https://maven.apache.org</url>
-
     <properties>
         <revision>1.0.3-SNAPSHOT</revision>
 
@@ -46,6 +42,7 @@
         <oss.releases.repository.url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
         </oss.releases.repository.url>
 
+        <!-- 所有的插件版本 -->
         <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
         <maven.filtering.version>3.3.2</maven.filtering.version>
         <maven.plugin.plugin.version>3.10.2</maven.plugin.plugin.version>
@@ -53,9 +50,20 @@
         <maven.javadoc.plugin.version>3.6.3</maven.javadoc.plugin.version>
         <nexus.staging.maven.plugin.version>1.6.5</nexus.staging.maven.plugin.version>
         <maven.copyright.plugin.version>3.0</maven.copyright.plugin.version>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+        <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
+        <maven.clean.plugin.version>3.3.2</maven.clean.plugin.version>
+        <maven.source.plugin.version>3.3.0</maven.source.plugin.version>
+        <maven.checkstyle.plugin.version>3.3.1</maven.checkstyle.plugin.version>
+        <maven.pmd.plugin.version>3.13.0</maven.pmd.plugin.version>
 
         <main.user.dir>${basedir}</main.user.dir>
+        <manifest.built.name>Hulk Sun</manifest.built.name>
     </properties>
+    <packaging>pom</packaging>
+    <description>Lodsve Maven Plugin Parent</description>
+
+    <url>https://maven.apache.org</url>
 
     <dependencyManagement>
         <dependencies>
@@ -200,6 +208,120 @@
                     </mapping>
                 </configuration>
             </plugin>
+            <!-- 编译 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <debuglevel>lines,vars,source</debuglevel>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <compilerArgs>
+                        <arg>-Xlint:unchecked</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <!-- clean -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${maven.clean.plugin.version}</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>src/..</directory>
+                            <includes>
+                                <include>dependency-reduced-pom.xml</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <!-- build jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Built-By>${manifest.built.name}</Built-By>
+                        </manifestEntries>
+                        <addMavenDescriptor>true</addMavenDescriptor>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- 生成源代码的插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven.source.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${maven.pmd.plugin.version}</version>
+                <configuration>
+                    <printFailingErrors>true</printFailingErrors>
+                    <linkXRef>false</linkXRef>
+                    <includeTests>true</includeTests>
+                    <rulesets>
+                        <ruleset>${main.user.dir}/tools/pmd-ruleset.xml</ruleset>
+                    </rulesets>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>check</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.42</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>checkstyle</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <failOnViolation>true</failOnViolation>
+                            <excludeGeneratedSources>true</excludeGeneratedSources>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configLocation>${main.user.dir}/tools/check-style.xml</configLocation>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -335,8 +457,8 @@
                             <charset>${project.build.sourceEncoding}</charset>
                             <encoding>${project.build.sourceEncoding}</encoding>
                             <docencoding>${project.build.sourceEncoding}</docencoding>
-                            <doctitle>Lodsve Boot JavaDocs</doctitle>
-                            <windowtitle>Lodsve Boot JavaDocs</windowtitle>
+                            <doctitle>Lodsve Maven Plugins JavaDocs</doctitle>
+                            <windowtitle>Lodsve Maven Plugins JavaDocs</windowtitle>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -392,8 +514,8 @@
                             <charset>${project.build.sourceEncoding}</charset>
                             <encoding>${project.build.sourceEncoding}</encoding>
                             <docencoding>${project.build.sourceEncoding}</docencoding>
-                            <doctitle>Lodsve Boot JavaDocs</doctitle>
-                            <windowtitle>Lodsve Boot JavaDocs</windowtitle>
+                            <doctitle>Lodsve Maven Plugins JavaDocs</doctitle>
+                            <windowtitle>Lodsve Maven Plugins JavaDocs</windowtitle>
                         </configuration>
                     </plugin>
                 </plugins>
