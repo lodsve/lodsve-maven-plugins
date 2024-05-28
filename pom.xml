@@ -26,7 +26,7 @@
     <version>${revision}</version>
     <name>Lodsve Maven Plugin Parent</name>
     <properties>
-        <revision>1.0.3-SNAPSHOT</revision>
+        <revision>1.0.3</revision>
 
         <maven.version>3.6.3</maven.version>
 
