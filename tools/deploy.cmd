@@ -20,7 +20,7 @@
 set profile=%1
 
 if "%profile%"=="release-lodsve" (
-  ..\mvnw.cmd clean deploy -P %1 -Dmaven.test.skip=true
+  .\mvnw.cmd clean deploy -P %1 -Dmaven.test.skip=true
 ) else (
   if "%2"=="" (
     echo The password for the gpg key to publish the maven repository cannot be empty.
@@ -31,5 +31,5 @@ if "%profile%"=="release-lodsve" (
     REM publish snapshot
     set args=-Dgpg.passphrase=$2 -Dmaven.test.skip=false
   )
-  ..\mvnw.cmd clean deploy -P %1 %args%
+  .\mvnw.cmd clean deploy -P %1 %args%
 )
