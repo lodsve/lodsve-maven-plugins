@@ -28,7 +28,7 @@
     <properties>
         <revision>1.0.3</revision>
 
-        <maven.version>3.6.3</maven.version>
+        <maven.version>3.8.1</maven.version>
 
         <!-- 基本属性 -->
         <project.encoding>UTF-8</project.encoding>
