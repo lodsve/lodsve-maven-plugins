@@ -1,12 +1,13 @@
-# Maven plugins for lodsve-framework!
+# Lodsve Maven plugins
 
 ## Expand maven plugins `maven-shade-plugin`
-- `lodsve.maven.plugin.shade.SpringFactoriesResourceTransformer` 
 
-    merge `spring.factories`
-- `lodsve.maven.plugin.shade.RegexAppendingTransformer`    
-    
-    merge resources with regex
+- `com.lodsve.maven.plugin.shade.SpringFactoriesResourceTransformer`
+
+  merge `spring.factories`
+- `com.lodsve.maven.plugin.shade.RegexAppendingTransformer`
+
+  merge resources with regex
 - How to use it?
 
         <plugin>
@@ -16,9 +17,9 @@
             <dependencies>
                 <!-- add dependency -->
                 <dependency>
-                    <groupId>com.lodsve</groupId>
-                    <artifactId>lodsve-maven-plugins</artifactId>
-                    <version>${project.version}</version>
+                    <groupId>com.lodsve.maven.plugins</groupId>
+                    <artifactId>lodsve-shade-maven-plugin</artifactId>
+                    <version>${lastest.version}</version>
                 </dependency>
             </dependencies>
             <executions>
@@ -31,12 +32,18 @@
                         ...
                         <!-- use it as transformer -->
                         <transformers>
-                            <transformer implementation="lodsve.maven.plugin.shade.SpringFactoriesResourceTransformer"/>
+                            <transformer implementation="com.lodsve.maven.plugin.shade.SpringFactoriesResourceTransformer"/>
                         </transformers>
-                        <transformer implementation="lodsve.maven.plugin.shade.RegexAppendingTransformer">
+                        <transformer implementation="com.lodsve.maven.plugin.shade.RegexAppendingTransformer">
                             <regex>META-INF/error/.*.properties</regex>
                         </transformer>
                     </configuration>
                 </execution>
             </executions>
         </plugin>
+
+## Maven Plugin: `lodsve-javatemplate-maven-plugin`
+
+```text
+To be improved
+```

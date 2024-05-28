@@ -1,23 +1,531 @@
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         https://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <!-- 配置父 -->
-    <parent>
-        <groupId>com.lodsve</groupId>
-        <artifactId>lodsve-parent</artifactId>
-        <version>1.0.0-RELEASE</version>
-        <relativePath/>
-    </parent>
 
-    <artifactId>lodsve-maven-plugins</artifactId>
-    <version>1.0.2-RELEASE</version>
+    <groupId>com.lodsve.maven.plugins</groupId>
+    <artifactId>lodsve-maven-plugin-parent</artifactId>
+    <version>${revision}</version>
+    <name>Lodsve Maven Plugin Parent</name>
+    <properties>
+        <revision>1.0.3</revision>
+
+        <maven.version>3.6.3</maven.version>
+
+        <!-- 基本属性 -->
+        <project.encoding>UTF-8</project.encoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
+
+        <!-- 仓库地址配置 -->
+        <oss.snapshots.repository.url>https://oss.sonatype.org/content/repositories/snapshots/
+        </oss.snapshots.repository.url>
+        <oss.releases.repository.url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
+        </oss.releases.repository.url>
+
+        <!-- 所有的插件版本 -->
+        <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
+        <maven.filtering.version>3.3.2</maven.filtering.version>
+        <maven.plugin.plugin.version>3.10.2</maven.plugin.plugin.version>
+        <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
+        <maven.javadoc.plugin.version>3.6.3</maven.javadoc.plugin.version>
+        <nexus.staging.maven.plugin.version>1.6.5</nexus.staging.maven.plugin.version>
+        <maven.copyright.plugin.version>3.0</maven.copyright.plugin.version>
+        <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+        <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
+        <maven.clean.plugin.version>3.3.2</maven.clean.plugin.version>
+        <maven.source.plugin.version>3.3.0</maven.source.plugin.version>
+        <maven.checkstyle.plugin.version>3.3.1</maven.checkstyle.plugin.version>
+        <maven.pmd.plugin.version>3.13.0</maven.pmd.plugin.version>
+
+        <main.user.dir>${basedir}</main.user.dir>
+        <manifest.built.name>Hulk Sun</manifest.built.name>
+    </properties>
     <packaging>pom</packaging>
-    <name>Lodsve Maven Plugins</name>
-    <description>Lodsve Maven Plugins</description>
+    <description>Lodsve Maven Plugin Parent</description>
+
+    <url>https://maven.apache.org</url>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-core</artifactId>
+                <version>${maven.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-plugin-api</artifactId>
+                <version>${maven.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.plugin-tools</groupId>
+                <artifactId>maven-plugin-annotations</artifactId>
+                <version>${maven.plugin.plugin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.shared</groupId>
+                <artifactId>maven-filtering</artifactId>
+                <version>${maven.filtering.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- 仓库 -->
+    <repositories>
+        <repository>
+            <id>default-center</id>
+            <name>default center</name>
+            <url>https://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>jcenter</id>
+            <name>jcenter</name>
+            <url>https://jcenter.bintray.com</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>${maven.plugin.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>help-mojo</id>
+                            <goals>
+                                <goal>helpmojo</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${flatten-maven-plugin.version}</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- copyright header -->
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${maven.copyright.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <quiet>false</quiet>
+                    <header>${main.user.dir}/tools/HEADER</header>
+                    <excludes>
+                        <exclude>.github/**</exclude>
+                        <exclude>.mvn/**</exclude>
+                        <exclude>git/**</exclude>
+                        <exclude>.toos/*.xml</exclude>
+                        <exclude>tools/HEADER</exclude>
+                        <exclude>.editorconfig</exclude>
+                        <exclude>.gitignore</exclude>
+                        <exclude>LICENSE</exclude>
+                        <exclude>mvnw</exclude>
+                        <exclude>mvnw.cmd</exclude>
+                        <exclude>*.md</exclude>
+                    </excludes>
+                    <strictCheck>true</strictCheck>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                        <factories>SCRIPT_STYLE</factories>
+                    </mapping>
+                </configuration>
+            </plugin>
+            <!-- 编译 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <debuglevel>lines,vars,source</debuglevel>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <compilerArgs>
+                        <arg>-Xlint:unchecked</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            <!-- clean -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${maven.clean.plugin.version}</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>src/..</directory>
+                            <includes>
+                                <include>dependency-reduced-pom.xml</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <!-- build jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Built-By>${manifest.built.name}</Built-By>
+                        </manifestEntries>
+                        <addMavenDescriptor>true</addMavenDescriptor>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- 生成源代码的插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven.source.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${maven.pmd.plugin.version}</version>
+                <configuration>
+                    <printFailingErrors>true</printFailingErrors>
+                    <linkXRef>false</linkXRef>
+                    <includeTests>true</includeTests>
+                    <rulesets>
+                        <ruleset>${main.user.dir}/tools/pmd-ruleset.xml</ruleset>
+                    </rulesets>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>check</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>8.42</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>checkstyle</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <failOnViolation>true</failOnViolation>
+                            <excludeGeneratedSources>true</excludeGeneratedSources>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configLocation>${main.user.dir}/tools/check-style.xml</configLocation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>jdk-11</id>
+            <activation>
+                <jdk>11</jdk>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <maven.compiler.source>11</maven.compiler.source>
+                <maven.compiler.target>11</maven.compiler.target>
+                <maven.compiler.compilerVersion>11</maven.compiler.compilerVersion>
+            </properties>
+        </profile>
+        <profile>
+            <id>release-oss</id>
+            <build>
+                <plugins>
+                    <!-- GPG,发布maven中央仓库用 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven.gpg.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <!-- 这个configuration必须配置，用于gpg非交互式密码输入 -->
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </plugin>
+                    <!-- 生成javadoc的插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven.javadoc.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <charset>${project.build.sourceEncoding}</charset>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <docencoding>${project.build.sourceEncoding}</docencoding>
+                            <doctitle>Lodsve Boot ApiDoc</doctitle>
+                            <windowtitle>Lodsve Boot ApiDoc</windowtitle>
+                        </configuration>
+                    </plugin>
+                    <!-- 在maven仓库中自动close和release的插件 -->
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${nexus.staging.maven.plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>oss-releases</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <!-- 发布仓库 -->
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>oss-snapshots</id>
+                    <name>oss SNAPSHOTS</name>
+                    <url>${oss.snapshots.repository.url}</url>
+                </snapshotRepository>
+
+                <repository>
+                    <id>oss-releases</id>
+                    <name>oss releases</name>
+                    <url>${oss.releases.repository.url}</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>release-oss-snapshot</id>
+            <build>
+                <plugins>
+                    <!-- GPG,发布maven中央仓库用 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven.gpg.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <!-- 这个configuration必须配置，用于gpg非交互式密码输入 -->
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </plugin>
+                    <!-- 生成javadoc的插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven.javadoc.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <charset>${project.build.sourceEncoding}</charset>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <docencoding>${project.build.sourceEncoding}</docencoding>
+                            <doctitle>Lodsve Maven Plugins JavaDocs</doctitle>
+                            <windowtitle>Lodsve Maven Plugins JavaDocs</windowtitle>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <!-- 发布仓库 -->
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>oss-snapshots</id>
+                    <name>oss SNAPSHOTS</name>
+                    <url>${oss.snapshots.repository.url}</url>
+                </snapshotRepository>
+
+                <repository>
+                    <id>oss-releases</id>
+                    <name>oss releases</name>
+                    <url>${oss.releases.repository.url}</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>release-lodsve</id>
+            <!-- 第三方发布仓库 -->
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>lodsve-snapshots</id>
+                    <name>lodsve SNAPSHOTS</name>
+                    <url>${lodsve.snapshots.repository.url}</url>
+                </snapshotRepository>
+
+                <repository>
+                    <id>lodsve-releases</id>
+                    <name>lodsve releases</name>
+                    <url>${lodsve.releases.repository.url}</url>
+                </repository>
+            </distributionManagement>
+            <build>
+                <plugins>
+                    <!-- 生成javadoc的插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven.javadoc.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <charset>${project.build.sourceEncoding}</charset>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <docencoding>${project.build.sourceEncoding}</docencoding>
+                            <doctitle>Lodsve Maven Plugins JavaDocs</doctitle>
+                            <windowtitle>Lodsve Maven Plugins JavaDocs</windowtitle>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <modules>
-        <module>lodsve-maven-plugins-shade</module>
+        <module>lodsve-javatemplate-maven-plugin</module>
+        <module>lodsve-shade-maven-plugin</module>
     </modules>
 
     <!-- issue -->
@@ -26,10 +534,31 @@
         <url>https://github.com/lodsve/lodsve-maven-plugins/issues</url>
     </issueManagement>
 
+    <licenses>
+        <license>
+            <name>GNU General Public License version 3</name>
+            <url>https://opensource.org/licenses/GPL-3.0</url>
+        </license>
+    </licenses>
+
     <!-- 代码库 -->
     <scm>
         <connection>scm:git:git@github.com:lodsve/lodsve-maven-plugins.git</connection>
         <developerConnection>scm:git:git@github.com:lodsve/lodsve-maven-plugins.git</developerConnection>
         <url>git@github.com:lodsve/lodsve-maven-plugins.git</url>
     </scm>
+
+    <developers>
+        <developer>
+            <id>sunhao</id>
+            <name>孙昊</name>
+            <email>sunhao.java@gmail.com</email>
+            <roles>
+                <role>creator</role>
+                <role>manager</role>
+                <role>developer</role>
+                <role>committer</role>
+            </roles>
+        </developer>
+    </developers>
 </project>
