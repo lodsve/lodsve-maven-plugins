@@ -64,3 +64,12 @@
 
 ```text
 待改进
+```
+
+## 特别鸣谢
+
+`Lodsve Boot` 是基于 [JetBrains IDEA][] 创建的。
+
+![JetBrains logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)
+
+[JetBrains IDEA]: https://www.jetbrains.com/?from=lodsve-boot

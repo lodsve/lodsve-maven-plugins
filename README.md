@@ -63,3 +63,11 @@
 ```text
 To be improved
 ```
+
+## Thanks
+
+The `Lodsve Boot` was created using awesome [JetBrains IDEA][].
+
+![JetBrains logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)
+
+[JetBrains IDEA]: https://www.jetbrains.com/?from=lodsve-boot
