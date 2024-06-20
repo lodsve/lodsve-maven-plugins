@@ -5,7 +5,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/lodsve/lodsve-maven-plugins.svg)](https://github.com/lodsve/lodsve-maven-plugins/network)
 [![GitHub issues](https://img.shields.io/github/issues/lodsve/lodsve-maven-plugins.svg)](https://github.com/lodsve/lodsve-maven-plugins/issues)
 [![GitHub pull requests](https://img.shields.io/github/issues-pr/lodsve/lodsve-maven-plugins.svg)](https://github.com/lodsve/lodsve-maven-plugins/pulls)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Flodsve%2Flodsve-maven-plugins.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Flodsve%2Flodsve-maven-plugins?ref=badge_shield)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Flodsve%2Flodsve-maven-plugins.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Flodsve%2Flodsve-maven-plugins?ref=badge_shield&issueType=license)
 
 ## Component Versions
 
@@ -63,6 +63,10 @@
 ```text
 To be improved
 ```
+
+## License Check
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Flodsve%2Flodsve-maven-plugins.svg?type=large&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Flodsve%2Flodsve-maven-plugins?ref=badge_large&issueType=license)
 
 ## Thanks
 
