@@ -1,5 +1,7 @@
 # Lodsve Maven plugins
 
+源码构建需要 JDK 21 和 Maven 3.3 或更高版本；插件运行时仍由使用它的 Maven 工程决定。
+
 [![LICENSE](https://img.shields.io/github/license/lodsve/lodsve-maven-plugins)](https://github.com/lodsve/lodsve-maven-plugins/blob/master/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/lodsve/lodsve-maven-plugins.svg)](https://github.com/lodsve/lodsve-maven-plugins/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/lodsve/lodsve-maven-plugins.svg)](https://github.com/lodsve/lodsve-maven-plugins/network)
