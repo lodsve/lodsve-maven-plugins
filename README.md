@@ -77,3 +77,6 @@ The `Lodsve Boot` was created using awesome [JetBrains IDEA][].
 ![JetBrains logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)
 
 [JetBrains IDEA]: https://www.jetbrains.com/?from=lodsve-boot
+## Lodsve Boot 4 兼容性
+
+本仓库提供 Maven 构建插件，不绑定 Spring Boot 运行时版本。Java 模板和资源合并插件已按 Lodsve Boot Spring Boot `4.1.2` 的构建流程验证；生成的应用仍需在模板中声明 JDK 21、Jakarta API 和 Springdoc OpenAPI 3 所需依赖。
